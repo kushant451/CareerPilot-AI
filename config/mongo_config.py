@@ -1,0 +1,3 @@
+COLLECTION_RESUMES    = "resumes"
+COLLECTION_INTERVIEWS = "interviews"
+COLLECTION_HISTORY    = "history"
