@@ -295,6 +295,7 @@ def _process_resume(uploaded_file, role):
     from services.resume_parser import extract_text
     from services.ats_checker   import run as ats_run
     from services.resume_analyzer import run as analyzer_run
+    from services.resume_validator import is_valid_resume
 
     with st.spinner("Analysing your resume..."):
         try:
@@ -303,13 +304,21 @@ def _process_resume(uploaded_file, role):
                 tmp.write(uploaded_file.read())
                 tmp_path = tmp.name
 
-            text     = extract_text(tmp_path, uploaded_file.name)
+            text = extract_text(tmp_path, uploaded_file.name)
+            os.unlink(tmp_path)
+
+            valid, reason = is_valid_resume(text)
+            if not valid:
+                st.session_state.upload_error = reason
+                st.session_state.resume_data  = None
+                st.rerun()
+                return
+
             ats      = ats_run(text, role)
             analysis = analyzer_run(text, role,
                                     ats["found_skills"],
                                     ats["missing_skills"],
                                     ats["sections"])
-            os.unlink(tmp_path)
 
             st.session_state.resume_data = {
                 "filename": uploaded_file.name,
