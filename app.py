@@ -2,7 +2,7 @@ import streamlit as st
 import uuid, os, time, tempfile
 
 st.set_page_config(
-    page_title="AI Interview Prep",
+    page_title="CareerPilot AI",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
