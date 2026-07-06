@@ -1,3 +1,4 @@
+
 import re
 
 SECTION_KEYWORDS = [
@@ -15,12 +16,15 @@ OFF_TOPIC_KEYWORDS = [
     "invoice", "purchase order", "terms and conditions", "chapter one",
     "table of contents", "abstract", "isbn", "recipe", "ingredients",
     "screenplay", "lorem ipsum",
+    "pnr", "irctc", "gstin", "invoice number", "boarding at",
+    "passenger details", "ticket fare", "booking status", "e-ticket",
+    "reservation slip", "boarding pass", "flight no", "seat no",
+    "order id", "transaction id", "amount payable", "grand total",
 ]
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
 PHONE_RE = re.compile(r"(\+?\d{1,3}[\s-]?)?\(?\d{3,4}\)?[\s-]?\d{3}[\s-]?\d{3,4}")
 MIN_WORD_COUNT = 60          # very short/blank files are rejected
-MIN_SIGNALS_REQUIRED = 2     # need at least this many resume signals to pass
 
 
 def is_valid_resume(text: str):
@@ -39,31 +43,35 @@ def is_valid_resume(text: str):
 
     lower = cleaned.lower()
 
-    signals = 0
-    matched_sections = [kw for kw in SECTION_KEYWORDS if kw in lower]
-    if matched_sections:
-        signals += 1
+    off_topic_hits = sum(1 for kw in OFF_TOPIC_KEYWORDS if kw in lower)
+    digit_ratio = sum(c.isdigit() for c in cleaned) / max(1, len(cleaned))
+
+
+    if off_topic_hits >= 2 or digit_ratio > 0.15:
+        return False, (
+            "This looks like a ticket, invoice, or receipt rather than a resume. "
+            "Please upload your resume (PDF or DOCX)."
+        )
+
+    has_section = any(kw in lower for kw in SECTION_KEYWORDS)
+
+
+    if not has_section:
+        return False, (
+            "We couldn't recognize this as a resume — it doesn't contain typical resume "
+            "sections (Experience, Education, Skills, etc.). "
+            "Please double-check the file and upload your resume."
+        )
 
     has_email = bool(EMAIL_RE.search(cleaned))
     has_phone = bool(PHONE_RE.search(cleaned))
-    if has_email:
-        signals += 1
-    if has_phone:
-        signals += 1
-
     lines = [l for l in cleaned.split("\n") if l.strip()]
-    if len(lines) >= 15:
-        signals += 1
+    line_dense = len(lines) >= 15
 
-    off_topic_hits = sum(1 for kw in OFF_TOPIC_KEYWORDS if kw in lower)
 
-    if off_topic_hits >= 2 and signals < MIN_SIGNALS_REQUIRED:
-        return False, "This document doesn't look like a resume. Please upload your resume (PDF or DOCX)."
-
-    if signals < MIN_SIGNALS_REQUIRED:
+    if not (has_email or has_phone or line_dense):
         return False, (
-            "We couldn't recognize this as a resume — it doesn't contain typical resume "
-            "sections (Experience, Education, Skills, etc.) or contact details. "
+            "This document doesn't look like a complete resume. "
             "Please double-check the file and upload your resume."
         )
 
