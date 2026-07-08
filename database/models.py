@@ -29,3 +29,25 @@ def history_doc(session_id, role, ats_score, interview_score,
         "attempted": attempted, "accuracy": accuracy, "breakdown": breakdown,
         "summary": summary, "created_at": datetime.now(timezone.utc),
     }
+
+def career_recommendation_doc(session_id, role, top_matches, insight):
+    return {
+        "session_id": session_id, "role": role, "top_matches": top_matches,
+        "insight": insight, "created_at": datetime.now(timezone.utc),
+    }
+
+def roadmap_doc(session_id, role, weeks, milestones, total_skills, generated_by_ai):
+    return {
+        "session_id": session_id, "role": role, "weeks": weeks,
+        "milestones": milestones, "total_skills": total_skills,
+        "generated_by_ai": generated_by_ai, "created_at": datetime.now(timezone.utc),
+    }
+
+def job_match_doc(session_id, role, job_description, match_percent,
+                   matched_keywords, missing_keywords, summary):
+    return {
+        "session_id": session_id, "role": role, "job_description": job_description,
+        "match_percent": match_percent, "matched_keywords": matched_keywords,
+        "missing_keywords": missing_keywords, "summary": summary,
+        "created_at": datetime.now(timezone.utc),
+    }

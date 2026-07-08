@@ -33,3 +33,31 @@ def resume_summary_prompt(resume_text, role):
         "Highlight the strongest asset and most important thing to fix.\n"
         f"Return ONLY plain text.\n\nResume:\n{resume_text[:3000]}"
     )
+
+def career_recommendation_prompt(role, skills, top_path_title, top_path_skills):
+    skill_str = ", ".join(skills[:20]) if skills else "general skills"
+    return (
+        f"A candidate currently targeting a {role} role has these skills: {skill_str}.\n"
+        f"Their top recommended career path is {top_path_title}, which typically needs: "
+        f"{', '.join(top_path_skills)}.\n"
+        "In 2-3 sentences, explain why this path fits them and what to focus on next.\n"
+        "Return ONLY plain text, no markdown."
+    )
+
+def roadmap_prompt(role, missing_skills, weeks):
+    skills_str = ", ".join(missing_skills) if missing_skills else "core fundamentals for the role"
+    return (
+        f"Create a {weeks}-week learning roadmap for someone targeting a {role} role.\n"
+        f"They need to learn: {skills_str}.\n"
+        f"Return ONLY a valid JSON array of exactly {weeks} objects, no extra text, no markdown fences.\n"
+        'Format: [{"week":1,"title":"...","skills":["..."],"tasks":["..."]}]'
+    )
+
+def job_match_prompt(role, matched, missing, pct):
+    return (
+        f"A candidate applying for a {role} role matches {pct}% of a job description's key skill keywords.\n"
+        f"Matched keywords: {', '.join(matched) if matched else 'none'}.\n"
+        f"Missing keywords: {', '.join(missing) if missing else 'none'}.\n"
+        "In 2-3 sentences, give a fit summary and the single most important improvement to make.\n"
+        "Return ONLY plain text, no markdown."
+    )

@@ -88,6 +88,10 @@ def init_session():
         "interview_complete": False,
         "upload_error":       None,
         "q_start_time":       None,
+        "career_recommendations": None,
+        "roadmap_data":       None,
+        "job_description":    "",
+        "job_match_result":   None,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -111,9 +115,13 @@ def render_sidebar():
         ("home",       "🏠", "Home"),
         ("ats",        "📄", "ATS Checker"),
         ("analysis",   "📊", "Resume Analysis"),
+        ("career",     "🧭", "Career Recommendation"),
+        ("roadmap",    "🗺️", "Learning Roadmap"),
+        ("jobmatch",   "🎯", "Job Match Analyzer"),
         ("questions",  "💬", "Question Generator"),
         ("mock",       "🎤", "Mock Interview"),
         ("report",     "📋", "Final Report"),
+        ("dashboard",  "📈", "Career Dashboard"),
     ]
     for key, icon, label in nav:
         active = st.session_state.page == key
@@ -185,6 +193,50 @@ def save_resume_to_db():
             score_label=r.get("score_label",""), suggestions=r.get("suggestions",[]),
             strengths=r.get("strengths",[]), weaknesses=r.get("weaknesses",[]),
             top_skills=r.get("top_skills",[]), summary=r.get("summary",""),
+        )
+    except Exception:
+        pass
+
+
+def save_career_rec_to_db(result):
+    try:
+        from database.career_collection import save_career_recommendation
+        save_career_recommendation(
+            session_id=st.session_state.session_id,
+            role=result.get("primary_role", ""),
+            top_matches=result.get("top_matches", []),
+            insight=result.get("insight", ""),
+        )
+    except Exception:
+        pass
+
+
+def save_roadmap_to_db(result):
+    try:
+        from database.career_collection import save_roadmap
+        save_roadmap(
+            session_id=st.session_state.session_id,
+            role=result.get("role", ""),
+            weeks=result.get("weeks", 0),
+            milestones=result.get("milestones", []),
+            total_skills=result.get("total_skills", 0),
+            generated_by_ai=result.get("generated_by_ai", False),
+        )
+    except Exception:
+        pass
+
+
+def save_job_match_to_db(role, job_description, result):
+    try:
+        from database.career_collection import save_job_match
+        save_job_match(
+            session_id=st.session_state.session_id,
+            role=role,
+            job_description=job_description,
+            match_percent=result.get("match_percent", 0),
+            matched_keywords=result.get("matched_keywords", []),
+            missing_keywords=result.get("missing_keywords", []),
+            summary=result.get("summary", ""),
         )
     except Exception:
         pass
@@ -469,6 +521,228 @@ def page_resume_analysis():
     with c2:
         if st.button("⬆️ Re-upload Resume", use_container_width=True):
             st.session_state.page = "home"; st.rerun()
+
+
+def page_career_recommendation():
+    from services.career_recommender import recommend
+
+    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">AI Career Recommendation</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Discover the career paths that best fit your current skills</p>', unsafe_allow_html=True)
+
+    resume = st.session_state.resume_data
+    if not resume:
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🧭</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#8B8FB8;margin-top:6px">Go to Home and upload a PDF or DOCX resume to get personalised recommendations.</div></div>', unsafe_allow_html=True)
+        if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
+        return
+
+    c1, c2 = st.columns([3, 1])
+    with c1:
+        st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-top:6px">Uses the skills detected in your resume to rank the career paths you are best suited for right now.</p>', unsafe_allow_html=True)
+    with c2:
+        if st.button("🧭 Get Recommendations", type="primary", use_container_width=True):
+            with st.spinner("Analysing your skill profile..."):
+                result = recommend(resume.get("role", st.session_state.role),
+                                    resume.get("found_skills", []),
+                                    resume.get("top_skills", []))
+                st.session_state.career_recommendations = result
+                save_career_rec_to_db(result)
+            st.rerun()
+
+    result = st.session_state.career_recommendations
+    if not result:
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🧭</div><div style="color:#8B8FB8;margin-top:12px">Click "Get Recommendations" to see your best-fit career paths.</div></div>', unsafe_allow_html=True)
+        return
+
+    matches = result.get("top_matches", [])
+    if not matches:
+        st.info(result.get("insight", "No recommendations available."))
+        return
+
+    st.markdown(f"""
+    <div class="ai-card" style="background:rgba(123,92,246,.08)">
+      <div style="font-size:12px;color:#7B5CF6;font-weight:600;text-transform:uppercase;margin-bottom:8px">✨ AI Insight</div>
+      <p style="font-size:13.5px;color:#E8EAFF;line-height:1.8">{result.get('insight','')}</p>
+    </div>""", unsafe_allow_html=True)
+
+    for i, path in enumerate(matches):
+        pct   = path["match_percent"]
+        color = "#10B981" if pct >= 70 else "#7B5CF6" if pct >= 40 else "#F59E0B"
+        badge = "b-green" if pct >= 70 else "b-accent" if pct >= 40 else "b-yellow"
+        matched_tags = "".join(f'<span class="tag">✓ {s}</span>' for s in path["matched_skills"]) or '<span style="color:#8B8FB8;font-size:12px">None yet</span>'
+        missing_tags = "".join(f'<span class="tag" style="background:rgba(239,68,68,.12);color:#EF4444;border-color:rgba(239,68,68,.2)">{s}</span>' for s in path["missing_skills"]) or '<span style="color:#10B981;font-size:12px">All core skills covered 🎉</span>'
+        top_flag = ' <span class="b-green">🏆 Best Match</span>' if i == 0 else ""
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+            <div>
+              <span style="font-size:17px;font-weight:700;color:#E8EAFF">{path['title']}</span>{top_flag}
+              <div style="color:#8B8FB8;font-size:12.5px;margin-top:4px">{path['description']}</div>
+            </div>
+            <div style="text-align:center;flex-shrink:0">
+              <div style="font-size:24px;font-weight:800;color:{color}">{pct}%</div>
+              <span class="{badge}" style="font-size:10.5px">match</span>
+            </div>
+          </div>
+          <div class="prog-bar" style="margin:10px 0"><div class="prog-fill" style="width:{pct}%;background:{color}"></div></div>
+          <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+            <span class="b-accent" style="font-size:11px">Growth: {path.get('growth_outlook','—')}</span>
+          </div>
+          <div style="margin-top:12px">
+            <div style="font-size:11px;color:#8B8FB8;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills you have</div>
+            {matched_tags}
+          </div>
+          <div style="margin-top:10px">
+            <div style="font-size:11px;color:#8B8FB8;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills to build</div>
+            {missing_tags}
+          </div>
+        </div>""", unsafe_allow_html=True)
+
+    if st.button("🗺️ Build a Learning Roadmap for My Top Match", type="primary", use_container_width=True):
+        st.session_state.page = "roadmap"; st.rerun()
+
+
+def page_learning_roadmap():
+    from config.settings import ROLES
+    from services.roadmap_generator import generate
+
+    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Learning Roadmap</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">A week-by-week plan to close your skill gaps</p>', unsafe_allow_html=True)
+
+    resume = st.session_state.resume_data
+    default_role = resume.get("role") if resume else st.session_state.role
+    default_missing = resume.get("missing_skills", []) if resume else []
+
+    st.markdown('<div class="ai-card">', unsafe_allow_html=True)
+    c1, c2 = st.columns([2, 1])
+    with c1:
+        role = st.selectbox("Target role", ROLES, key="rm_role",
+                             index=ROLES.index(default_role) if default_role in ROLES else 0)
+    with c2:
+        weeks = st.slider("Roadmap length (weeks)", 2, 16, 8, key="rm_weeks")
+
+    if default_missing:
+        st.caption(f"Using {len(default_missing)} missing skill(s) detected from your resume for the **{role}** role.")
+    else:
+        st.caption("No resume on file — the roadmap will use the core skill list for this role instead.")
+
+    if st.button("🗺️ Generate Roadmap", type="primary", use_container_width=True):
+        with st.spinner("Building your personalised roadmap..."):
+            result = generate(role, default_missing, weeks)
+            st.session_state.roadmap_data = result
+            save_roadmap_to_db(result)
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    result = st.session_state.roadmap_data
+    if not result:
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🗺️</div><div style="color:#8B8FB8;margin-top:12px">Click "Generate Roadmap" to build your learning plan.</div></div>', unsafe_allow_html=True)
+        return
+
+    ai_tag = '<span class="b-cyan">✨ AI Generated</span>' if result.get("generated_by_ai") else '<span class="b-accent">Curated Plan</span>'
+    st.markdown(f"""
+    <div style="display:flex;gap:10px;align-items:center;margin:14px 0">
+      <span class="b-green">{result['weeks']} Weeks</span>
+      <span class="b-accent">{result['total_skills']} Skills</span>
+      {ai_tag}
+    </div>""", unsafe_allow_html=True)
+
+    for m in result.get("milestones", []):
+        skills_tags = "".join(f'<span class="tag">{s}</span>' for s in m.get("skills", [])) or '<span style="color:#8B8FB8;font-size:12px">Review & practice</span>'
+        tasks_html = "".join(f'<div style="padding:4px 0;font-size:12.5px;color:#E8EAFF">☐ {t}</div>' for t in m.get("tasks", []))
+        res_html = "".join(f'<a href="{r["url"]}" target="_blank" style="color:#7B5CF6;font-size:11.5px;margin-right:10px">🔗 {r["skill"]}</a>' for r in m.get("resources", []))
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="width:30px;height:30px;border-radius:50%;background:rgba(123,92,246,.2);
+                         color:#7B5CF6;font-size:12px;font-weight:700;display:flex;align-items:center;
+                         justify-content:center;flex-shrink:0">{m.get('week','?')}</span>
+            <span style="font-weight:700;font-size:14.5px;color:#E8EAFF">{m.get('title','')}</span>
+          </div>
+          <div style="margin-bottom:10px">{skills_tags}</div>
+          {tasks_html}
+          <div style="margin-top:10px">{res_html}</div>
+        </div>""", unsafe_allow_html=True)
+
+    lines = [f"LEARNING ROADMAP — {result['role']} ({result['weeks']} weeks)", "=" * 50, ""]
+    for m in result.get("milestones", []):
+        lines.append(f"Week {m.get('week')}: {m.get('title')}")
+        for t in m.get("tasks", []):
+            lines.append(f"  - {t}")
+        lines.append("")
+    st.download_button("⬇️ Download Roadmap", data="\n".join(lines),
+                       file_name="learning_roadmap.txt", mime="text/plain", use_container_width=True)
+
+
+def page_job_match_analyzer():
+    from config.settings import ROLES
+    from services.job_match_analyzer import analyze
+
+    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Job Match Analyzer</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Paste a job description to see how well your resume matches</p>', unsafe_allow_html=True)
+
+    resume = st.session_state.resume_data
+    if not resume:
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🎯</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#8B8FB8;margin-top:6px">Go to Home and upload a PDF or DOCX resume first.</div></div>', unsafe_allow_html=True)
+        if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
+        return
+
+    st.markdown('<div class="ai-card">', unsafe_allow_html=True)
+    role = st.selectbox("Role this job description is for", ROLES, key="jm_role",
+                        index=ROLES.index(resume.get("role")) if resume.get("role") in ROLES else 0)
+    jd = st.text_area("Paste the job description here", height=200, key="jm_jd",
+                      value=st.session_state.job_description,
+                      placeholder="Paste the full job description text...")
+    if st.button("🎯 Analyze Match", type="primary", use_container_width=True):
+        if jd.strip():
+            st.session_state.job_description = jd
+            with st.spinner("Comparing your resume against the job description..."):
+                result = analyze(resume.get("raw_text", ""), jd, role)
+                st.session_state.job_match_result = result
+                save_job_match_to_db(role, jd, result)
+            st.rerun()
+        else:
+            st.warning("Please paste a job description first.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    result = st.session_state.job_match_result
+    if not result:
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🎯</div><div style="color:#8B8FB8;margin-top:12px">Paste a job description above and click "Analyze Match".</div></div>', unsafe_allow_html=True)
+        return
+
+    pct = result["match_percent"]
+    color = "#10B981" if pct >= 75 else "#7B5CF6" if pct >= 50 else "#F59E0B" if pct >= 25 else "#EF4444"
+
+    c1, c2 = st.columns([1, 3])
+    with c1:
+        st.markdown(f"""
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          {svg_ring(pct, 100, size=110, color=color, sub="/100")}
+          <span class="{result['badge']}">{result['label']}</span>
+        </div>""", unsafe_allow_html=True)
+    with c2:
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="font-weight:600;color:#E8EAFF;margin-bottom:8px">Fit Summary</div>
+          <p style="font-size:13px;color:#E8EAFF;line-height:1.8">{result['summary']}</p>
+        </div>""", unsafe_allow_html=True)
+
+    p1, p2 = st.columns(2)
+    with p1:
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#10B981;font-weight:600;text-transform:uppercase;margin-bottom:12px">✅ Matched Keywords</div>', unsafe_allow_html=True)
+        if result["matched_keywords"]:
+            tags = "".join(f'<span class="tag">{s}</span>' for s in result["matched_keywords"])
+            st.markdown(tags, unsafe_allow_html=True)
+        else:
+            st.markdown('<p style="color:#8B8FB8;font-size:13px">No overlapping keywords found.</p>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    with p2:
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#EF4444;font-weight:600;text-transform:uppercase;margin-bottom:12px">❌ Missing Keywords</div>', unsafe_allow_html=True)
+        if result["missing_keywords"]:
+            tags = "".join(f'<span class="tag" style="background:rgba(239,68,68,.12);color:#EF4444;border-color:rgba(239,68,68,.2)">{s}</span>' for s in result["missing_keywords"])
+            st.markdown(tags, unsafe_allow_html=True)
+        else:
+            st.markdown('<p style="color:#10B981;font-size:13px">🎉 No missing keywords!</p>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 def page_question_generator():
@@ -920,6 +1194,107 @@ def page_final_report():
                            mime="text/plain", use_container_width=True)
 
 
+def page_career_dashboard():
+    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Career Dashboard</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Your career-readiness snapshot, all in one place</p>', unsafe_allow_html=True)
+
+    resume   = st.session_state.resume_data
+    ats      = resume.get("ats_score", 0) if resume else 0
+    mock_avg = avg_score()
+    career   = st.session_state.career_recommendations
+    roadmap  = st.session_state.roadmap_data
+    jobmatch = st.session_state.job_match_result
+
+    top_path   = career["top_matches"][0] if career and career.get("top_matches") else None
+    top_pct    = top_path["match_percent"] if top_path else 0
+    weeks_left = roadmap["weeks"] if roadmap else 0
+    jm_pct     = jobmatch["match_percent"] if jobmatch else 0
+
+    readiness = round((ats * 0.25 + mock_avg * 10 * 0.35 + top_pct * 0.2 + jm_pct * 0.2))
+
+    st.markdown(f"""
+    <div class="ai-card" style="text-align:center;padding:36px">
+      <div style="font-size:12px;color:#8B8FB8;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Overall Career Readiness</div>
+      <div style="font-size:52px;font-weight:800;color:#7B5CF6;line-height:1;margin-top:8px">{readiness}%</div>
+      <p style="color:#8B8FB8;font-size:13px;max-width:520px;margin:12px auto 0;line-height:1.8">
+        Combines your ATS resume score, mock interview performance, best career-path match, and latest job-description match.</p>
+    </div>""", unsafe_allow_html=True)
+
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        color = "#10B981" if ats >= 70 else "#F59E0B" if ats >= 50 else "#EF4444"
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">📄 ATS Score</div>
+          <div style="font-size:26px;font-weight:700;color:{color}">{ats}<span style="font-size:12px;color:#8B8FB8">/100</span></div>
+        </div>""", unsafe_allow_html=True)
+        if st.button("View →", key="d_ats", use_container_width=True): st.session_state.page="ats"; st.rerun()
+
+    with c2:
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎤 Mock Interview</div>
+          <div style="font-size:26px;font-weight:700;color:#7B5CF6">{mock_avg}<span style="font-size:12px;color:#8B8FB8">/10</span></div>
+        </div>""", unsafe_allow_html=True)
+        if st.button("View →", key="d_mock", use_container_width=True): st.session_state.page="report"; st.rerun()
+
+    with c3:
+        label = top_path["title"] if top_path else "Not analysed"
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🧭 Best Career Fit</div>
+          <div style="font-size:16px;font-weight:700;color:#E8EAFF;margin-bottom:4px">{label}</div>
+          <div style="font-size:13px;color:#10B981;font-weight:600">{top_pct}% match</div>
+        </div>""", unsafe_allow_html=True)
+        if st.button("View →", key="d_career", use_container_width=True): st.session_state.page="career"; st.rerun()
+
+    with c4:
+        label = f"{jm_pct}% match" if jobmatch else "Not analysed"
+        st.markdown(f"""
+        <div class="ai-card">
+          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎯 Latest Job Match</div>
+          <div style="font-size:26px;font-weight:700;color:#7B5CF6">{label}</div>
+        </div>""", unsafe_allow_html=True)
+        if st.button("View →", key="d_jm", use_container_width=True): st.session_state.page="jobmatch"; st.rerun()
+
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">🗺️ Learning Roadmap Progress</div>', unsafe_allow_html=True)
+        if roadmap:
+            st.markdown(f"""
+            <p style="font-size:13px;color:#E8EAFF;line-height:1.8">
+              Your <strong>{weeks_left}-week</strong> roadmap for <strong>{roadmap['role']}</strong> covers
+              <strong style="color:#7B5CF6">{roadmap['total_skills']}</strong> skills across
+              {len(roadmap.get('milestones', []))} milestones.</p>""", unsafe_allow_html=True)
+            if st.button("Open Roadmap →", key="d_roadmap_open"):
+                st.session_state.page = "roadmap"; st.rerun()
+        else:
+            st.markdown('<p style="color:#8B8FB8;font-size:13px">No roadmap generated yet.</p>', unsafe_allow_html=True)
+            if st.button("Generate Roadmap →", key="d_roadmap_gen"):
+                st.session_state.page = "roadmap"; st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with c2:
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">🧭 Top 3 Career Matches</div>', unsafe_allow_html=True)
+        if career and career.get("top_matches"):
+            for p in career["top_matches"][:3]:
+                pc = p["match_percent"]
+                fc = "p-green" if pc >= 70 else "p-yellow" if pc >= 40 else ""
+                st.markdown(f"""
+                <div style="margin-bottom:12px">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                    <span style="font-size:13px;color:#E8EAFF">{p['title']}</span>
+                    <span style="font-size:13px;color:#8B8FB8;font-weight:600">{pc}%</span>
+                  </div>
+                  <div class="prog-bar"><div class="prog-fill {fc}" style="width:{pc}%"></div></div>
+                </div>""", unsafe_allow_html=True)
+        else:
+            st.markdown('<p style="color:#8B8FB8;font-size:13px">No career recommendations yet.</p>', unsafe_allow_html=True)
+            if st.button("Get Recommendations →", key="d_career_gen"):
+                st.session_state.page = "career"; st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 def main():
     load_css()
     init_session()
@@ -931,10 +1306,14 @@ def main():
         "home":       page_home,
         "ats":        page_ats_checker,
         "analysis":   page_resume_analysis,
+        "career":     page_career_recommendation,
+        "roadmap":    page_learning_roadmap,
+        "jobmatch":   page_job_match_analyzer,
         "questions":  page_question_generator,
         "mock":       page_mock_interview,
         "evaluation": page_evaluation,
         "report":     page_final_report,
+        "dashboard":  page_career_dashboard,
     }
     pages.get(st.session_state.page, page_home)()
 
