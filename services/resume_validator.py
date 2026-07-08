@@ -1,16 +1,18 @@
-
 import re
 
-SECTION_KEYWORDS = [
-    "experience", "work experience", "employment", "professional experience",
-    "education", "academic",
-    "skills", "technical skills", "core competencies",
-    "projects", "project experience",
-    "certification", "certifications",
-    "summary", "objective", "profile",
-    "achievements", "accomplishments",
-    "internship", "internships",
-]
+# Distinct resume "sections" — grouped so a document must match MULTIPLE
+# different categories (not just one repeated keyword) to count as a resume.
+SECTION_CATEGORIES = {
+    "experience":  ["experience", "work experience", "employment", "professional experience"],
+    "education":   ["education", "academic background", "b.tech", "bachelor of", "university", "college"],
+    "skills":      ["skills", "technical skills", "core competencies"],
+    "projects":    ["projects", "project experience"],
+    "summary":     ["summary", "objective", "career objective", "profile"],
+    "certifications": ["certification", "certifications"],
+    "achievements": ["achievements", "accomplishments"],
+    "internship":  ["internship", "internships"],
+}
+MIN_DISTINCT_CATEGORIES = 2   # must hit at least 2 different section types
 
 OFF_TOPIC_KEYWORDS = [
     "invoice", "purchase order", "terms and conditions", "chapter one",
@@ -20,6 +22,13 @@ OFF_TOPIC_KEYWORDS = [
     "passenger details", "ticket fare", "booking status", "e-ticket",
     "reservation slip", "boarding pass", "flight no", "seat no",
     "order id", "transaction id", "amount payable", "grand total",
+    # certificate / offer-letter / badge documents (not resumes)
+    "certificate of completion", "certificate of participation",
+    "certificate of virtual internship", "digital badge", "credly.com",
+    "training badge", "course hours completed", "internship offer letter",
+    "issued on", "certificate id", "student id", "aicte", "eduskills",
+    "grade point assessment", "this is to certify that",
+    "has successfully completed", "has successfully participated",
 ]
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
@@ -46,20 +55,21 @@ def is_valid_resume(text: str):
     off_topic_hits = sum(1 for kw in OFF_TOPIC_KEYWORDS if kw in lower)
     digit_ratio = sum(c.isdigit() for c in cleaned) / max(1, len(cleaned))
 
-
     if off_topic_hits >= 2 or digit_ratio > 0.15:
         return False, (
-            "This looks like a ticket, invoice, or receipt rather than a resume. "
+            "This looks like a certificate, offer letter, ticket, or invoice rather than a resume. "
             "Please upload your resume (PDF or DOCX)."
         )
 
-    has_section = any(kw in lower for kw in SECTION_KEYWORDS)
+    matched_categories = [
+        cat for cat, kws in SECTION_CATEGORIES.items()
+        if any(kw in lower for kw in kws)
+    ]
 
-
-    if not has_section:
+    if len(matched_categories) < MIN_DISTINCT_CATEGORIES:
         return False, (
-            "We couldn't recognize this as a resume — it doesn't contain typical resume "
-            "sections (Experience, Education, Skills, etc.). "
+            "We couldn't recognize this as a resume — it doesn't contain enough typical resume "
+            "sections (Experience, Education, Skills, Projects, etc.). "
             "Please double-check the file and upload your resume."
         )
 
@@ -67,7 +77,6 @@ def is_valid_resume(text: str):
     has_phone = bool(PHONE_RE.search(cleaned))
     lines = [l for l in cleaned.split("\n") if l.strip()]
     line_dense = len(lines) >= 15
-
 
     if not (has_email or has_phone or line_dense):
         return False, (
