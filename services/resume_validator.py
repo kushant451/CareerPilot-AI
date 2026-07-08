@@ -1,7 +1,5 @@
 import re
 
-# Distinct resume "sections" — grouped so a document must match MULTIPLE
-# different categories (not just one repeated keyword) to count as a resume.
 SECTION_CATEGORIES = {
     "experience":  ["experience", "work experience", "employment", "professional experience"],
     "education":   ["education", "academic background", "b.tech", "bachelor of", "university", "college"],
@@ -12,7 +10,7 @@ SECTION_CATEGORIES = {
     "achievements": ["achievements", "accomplishments"],
     "internship":  ["internship", "internships"],
 }
-MIN_DISTINCT_CATEGORIES = 2   # must hit at least 2 different section types
+MIN_DISTINCT_CATEGORIES = 2   
 
 OFF_TOPIC_KEYWORDS = [
     "invoice", "purchase order", "terms and conditions", "chapter one",
@@ -33,7 +31,7 @@ OFF_TOPIC_KEYWORDS = [
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
 PHONE_RE = re.compile(r"(\+?\d{1,3}[\s-]?)?\(?\d{3,4}\)?[\s-]?\d{3}[\s-]?\d{3,4}")
-MIN_WORD_COUNT = 60          # very short/blank files are rejected
+MIN_WORD_COUNT = 60         
 
 
 def is_valid_resume(text: str):
@@ -57,7 +55,7 @@ def is_valid_resume(text: str):
 
     if off_topic_hits >= 2 or digit_ratio > 0.15:
         return False, (
-            "This looks like a certificate, offer letter, ticket, or invoice rather than a resume. "
+            "The uploaded document does not appear to be a resume. "
             "Please upload your resume (PDF or DOCX)."
         )
 
