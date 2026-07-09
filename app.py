@@ -293,7 +293,7 @@ def page_home():
             if st.session_state.evaluations:        pct += 20
         ats = resume.get("ats_score", 0) if resume else 0
         st.markdown(f"""
-        <div class="ai-card-flat" style="text-align:center">
+        <div class="ai-card-flat" style="text-align:center; margin-top:6px">
           <div style="font-size:10px;color:#9C7A6B;font-weight:600;text-transform:uppercase;
                       letter-spacing:.4px;margin-bottom:10px">Overall Progress</div>
           {svg_ring(pct, 100, size=90, color="#E8896A", sub="%")}
