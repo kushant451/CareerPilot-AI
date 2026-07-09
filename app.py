@@ -258,9 +258,9 @@ def page_home():
 
     st.markdown("""
     <div style="text-align:center; padding:18px 0 32px">
-        <div style="font-size:44px; margin-bottom:6px">👋</div>
-        <h1 style="color:#3A2E2A; font-size:34px; font-weight:800; margin:0 0 8px">Welcome back</h1>
-        <p style="color:#9C7A6B; font-size:17px; margin:0">Let's crack your dream job!</p>
+        <div style="font-size:52px; margin-bottom:8px">👋</div>
+        <h1 style="color:#3A2E2A; font-size:48px; font-weight:800; margin:0 0 10px">Welcome back</h1>
+        <p style="color:#9C7A6B; font-size:20px; margin:0">Let's crack your dream job!</p>
     </div>
     """, unsafe_allow_html=True)
     if st.session_state.upload_error:
