@@ -256,10 +256,13 @@ def save_job_match_to_db(role, job_description, result):
 def page_home():
     from config.settings import ROLES
 
-    st.markdown('<h1 style="color:#3A2E2A;font-size:39px;font-weight:800;margin-bottom:2px">Welcome back, 👋</h1>',
-                unsafe_allow_html=True)
-    st.markdown('<p style="color:#9C7A6B;font-size:22px;margin-bottom:20px">Let\'s crack your dream job!</p>',
-                unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align:center; padding:18px 0 32px">
+        <div style="font-size:52px; margin-bottom:8px">👋</div>
+        <h1 style="color:#3A2E2A; font-size:48px; font-weight:800; margin:0 0 10px">Welcome back</h1>
+        <p style="color:#9C7A6B; font-size:20px; margin:0">Let's crack your dream job!</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if st.session_state.upload_error:
         st.error(st.session_state.upload_error)
