@@ -13,29 +13,29 @@ def load_css():
 <style>
 #MainMenu, footer, header {display:none !important}
 .block-container {padding:1.5rem 2rem !important; max-width:1100px}
-.stApp {background:#0B0D1A}
-section[data-testid="stSidebar"] {background:#12152A; border-right:1px solid #252840}
+.stApp {background:#FFF6F0}
+section[data-testid="stSidebar"] {background:#FFFFFF; border-right:1px solid #F0DDD0; box-shadow:2px 0 12px rgba(232,137,106,.06)}
 
-.ai-card {background:#12152A; border:1px solid #252840; border-radius:16px; padding:20px; margin-bottom:16px}
-.ai-card-flat {background:#181B30; border-radius:12px; padding:16px; margin-bottom:12px}
+.ai-card {background:#FFFFFF; border:1px solid #F3E1D3; border-radius:16px; padding:20px; margin-bottom:16px; box-shadow:0 2px 10px rgba(232,137,106,.08)}
+.ai-card-flat {background:#FDEAE0; border:1px solid #F3E1D3; border-radius:12px; padding:16px; margin-bottom:12px}
 
 .b-green  {background:rgba(16,185,129,.12);  color:#10B981; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
 .b-red    {background:rgba(239,68,68,.12);   color:#EF4444; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
 .b-yellow {background:rgba(245,158,11,.12);  color:#F59E0B; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
-.b-accent {background:rgba(123,92,246,.15);  color:#7B5CF6; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
+.b-accent {background:rgba(232,137,106,.15);  color:#E8896A; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
 .b-cyan   {background:rgba(6,182,212,.12);   color:#06B6D4; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:500; display:inline-block}
 
-.tag {display:inline-block; background:rgba(123,92,246,.15); color:#7B5CF6; padding:4px 12px;
-      border-radius:999px; font-size:12px; margin:3px; border:1px solid rgba(123,92,246,.2)}
+.tag {display:inline-block; background:rgba(232,137,106,.15); color:#E8896A; padding:4px 12px;
+      border-radius:999px; font-size:12px; margin:3px; border:1px solid rgba(232,137,106,.2)}
 
-.prog-bar    {height:6px; border-radius:3px; background:#181B30; overflow:hidden; margin:4px 0}
-.prog-fill   {height:100%; border-radius:3px; background:#7B5CF6}
+.prog-bar    {height:6px; border-radius:3px; background:#FDEAE0; overflow:hidden; margin:4px 0}
+.prog-fill   {height:100%; border-radius:3px; background:#E8896A}
 .p-green     {background:#10B981}
 .p-yellow    {background:#F59E0B}
 .p-red       {background:#EF4444}
 
 .waveform {display:flex; align-items:center; gap:3px; height:32px; margin:10px 0}
-.waveform span {width:3px; border-radius:2px; background:#7B5CF6; animation:wv 1.2s ease-in-out infinite}
+.waveform span {width:3px; border-radius:2px; background:#E8896A; animation:wv 1.2s ease-in-out infinite}
 .waveform span:nth-child(2){animation-delay:.1s} .waveform span:nth-child(3){animation-delay:.2s}
 .waveform span:nth-child(4){animation-delay:.3s} .waveform span:nth-child(5){animation-delay:.4s}
 .waveform span:nth-child(6){animation-delay:.5s} .waveform span:nth-child(7){animation-delay:.6s}
@@ -45,22 +45,33 @@ section[data-testid="stSidebar"] {background:#12152A; border-right:1px solid #25
 @keyframes wv {0%,100%{height:10%} 50%{height:100%}}
 
 .stButton>button {
-    background:#7B5CF6 !important; color:#fff !important;
     border:none !important; border-radius:8px !important; font-weight:500 !important
 }
-.stButton>button:hover {background:#8b7ff5 !important}
+button[kind="primary"], button[kind="primaryFormSubmit"] {
+    background:#E8896A !important; color:#fff !important;
+}
+button[kind="primary"]:hover {background:#F0A184 !important}
+button[kind="secondary"] {
+    background:transparent !important; color:#6B5248 !important;
+    text-align:left !important; justify-content:flex-start !important;
+    padding-left:14px !important; font-weight:500 !important;
+}
+button[kind="secondary"]:hover {background:#FDEAE0 !important; color:#3A2E2A !important}
+section[data-testid="stSidebar"] button[kind="primary"] {
+    box-shadow:0 2px 8px rgba(232,137,106,.35) !important;
+}
 .stTextArea>div>textarea {
-    background:#181B30 !important; border:1px solid #2E3154 !important;
-    color:#E8EAFF !important; border-radius:8px !important
+    background:#FDEAE0 !important; border:1px solid #E8C7AE !important;
+    color:#3A2E2A !important; border-radius:8px !important
 }
 .stSelectbox>div>div {
-    background:#181B30 !important; border:1px solid #2E3154 !important; color:#E8EAFF !important
+    background:#FDEAE0 !important; border:1px solid #E8C7AE !important; color:#3A2E2A !important
 }
-.stFileUploader>div {background:#181B30 !important; border:1px solid #2E3154 !important; border-radius:8px !important}
-label {color:#8B8FB8 !important; font-size:12px !important}
+.stFileUploader>div {background:#FDEAE0 !important; border:1px solid #E8C7AE !important; border-radius:8px !important}
+label {color:#9C7A6B !important; font-size:12px !important}
 .stDownloadButton>button {
-    background:#181B30 !important; border:1px solid #2E3154 !important;
-    color:#E8EAFF !important; border-radius:8px !important
+    background:#FDEAE0 !important; border:1px solid #E8C7AE !important;
+    color:#3A2E2A !important; border-radius:8px !important
 }
 .stAlert {border-radius:8px !important}
 div[data-testid="stDecoration"] {display:none}
@@ -101,12 +112,12 @@ def init_session():
 def render_sidebar():
     st.markdown("""
     <div style='display:flex;align-items:center;gap:12px;padding:8px 0 20px;
-                border-bottom:1px solid #252840;margin-bottom:12px'>
-      <div style='width:60px;height:60px;border-radius:15px;background:#7B5CF6;
+                border-bottom:1px solid #F0DDD0;margin-bottom:12px'>
+      <div style='width:60px;height:60px;border-radius:15px;background:#E8896A;
                   display:flex;align-items:center;justify-content:center;font-size:28px'>🤖</div>
       <div>
-        <div style='font-size:24px;font-weight:900;color:#E8EAFF'>AI Interview</div>
-        <div style='font-size:16px;color:#8B8FB8'>Preparation Assistant</div>
+        <div style='font-size:24px;font-weight:900;color:#3A2E2A'>AI Interview</div>
+        <div style='font-size:16px;color:#9C7A6B'>Preparation Assistant</div>
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -133,10 +144,10 @@ def render_sidebar():
 
     st.markdown("---")
     st.markdown("""
-    <div style='background:rgba(123,92,246,.1);border:1px solid #2E3154;
+    <div style='background:rgba(232,137,106,.1);border:1px solid #E8C7AE;
                 border-radius:12px;padding:14px'>
       <div style='font-size:11px;color:#F59E0B;font-weight:600;margin-bottom:4px'>⭐ Pro Features</div>
-      <div style='font-size:11.5px;color:#8B8FB8;margin-bottom:10px'>
+      <div style='font-size:11.5px;color:#9C7A6B;margin-bottom:10px'>
         Unlimited mock interviews, AI feedback & analytics.</div>
     </div>
     """, unsafe_allow_html=True)
@@ -148,7 +159,7 @@ def render_sidebar():
         st.rerun()
 
 
-def svg_ring(value, max_val, size=100, color="#7B5CF6", sub=""):
+def svg_ring(value, max_val, size=100, color="#E8896A", sub=""):
     pct   = (value / max_val) if max_val else 0
     r     = size * 0.42
     circ  = 2 * 3.14159 * r
@@ -157,14 +168,14 @@ def svg_ring(value, max_val, size=100, color="#7B5CF6", sub=""):
     fs = size * 0.22
     return f"""
     <svg width="{size}" height="{size}" viewBox="0 0 {size} {size}">
-      <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#252840" stroke-width="{size*.08}"/>
+      <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#F0DDD0" stroke-width="{size*.08}"/>
       <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}"
               stroke-width="{size*.08}" stroke-dasharray="{dash:.1f} {circ:.1f}"
               stroke-linecap="round" transform="rotate(-90 {cx} {cy})"/>
       <text x="{cx}" y="{cy-.04*size}" text-anchor="middle" dominant-baseline="central"
             fill="{color}" font-size="{fs}" font-weight="700"
             font-family="Segoe UI,sans-serif">{value}</text>
-      <text x="{cx}" y="{cy+size*.2}" text-anchor="middle" fill="#8B8FB8"
+      <text x="{cx}" y="{cy+size*.2}" text-anchor="middle" fill="#9C7A6B"
             font-size="{size*.1}" font-family="Segoe UI,sans-serif">{sub}</text>
     </svg>"""
 
@@ -245,9 +256,9 @@ def save_job_match_to_db(role, job_description, result):
 def page_home():
     from config.settings import ROLES
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:36px;font-weight:800;margin-bottom:2px">Welcome back, 👋</h1>',
+    st.markdown('<h1 style="color:#3A2E2A;font-size:36px;font-weight:800;margin-bottom:2px">Welcome back, 👋</h1>',
                 unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:20px;margin-bottom:20px">Let\'s crack your dream job!</p>',
+    st.markdown('<p style="color:#9C7A6B;font-size:20px;margin-bottom:20px">Let\'s crack your dream job!</p>',
                 unsafe_allow_html=True)
 
     if st.session_state.upload_error:
@@ -257,8 +268,8 @@ def page_home():
     col_form, col_ring = st.columns([3, 1])
     with col_form:
         st.markdown('<div class="ai-card">', unsafe_allow_html=True)
-        st.markdown('<div style="font-size:25px;font-weight:700;color:#E8EAFF;margin-bottom:6px">🎯 Your AI Interview Coach</div>', unsafe_allow_html=True)
-        st.markdown('<p style="color:#8B8FB8;font-size:18px;margin-bottom:16px">Upload your resume, check ATS score, practice interviews and improve your skills.</p>', unsafe_allow_html=True)
+        st.markdown('<div style="font-size:25px;font-weight:700;color:#3A2E2A;margin-bottom:6px">🎯 Your AI Interview Coach</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#9C7A6B;font-size:18px;margin-bottom:16px">Upload your resume, check ATS score, practice interviews and improve your skills.</p>', unsafe_allow_html=True)
 
         role_sel  = st.selectbox("Target role", ROLES, key="home_role")
         uploaded  = st.file_uploader("Resume (PDF / DOCX)", type=["pdf","docx"], key="home_upload")
@@ -281,20 +292,22 @@ def page_home():
         ats = resume.get("ats_score", 0) if resume else 0
         st.markdown(f"""
         <div class="ai-card-flat" style="text-align:center">
-          <div style="font-size:10px;color:#8B8FB8;font-weight:600;text-transform:uppercase;
+          <div style="font-size:10px;color:#9C7A6B;font-weight:600;text-transform:uppercase;
                       letter-spacing:.4px;margin-bottom:10px">Overall Progress</div>
-          {svg_ring(pct, 100, size=90, color="#7B5CF6", sub="%")}
+          {svg_ring(pct, 100, size=90, color="#E8896A", sub="%")}
           <div style="margin-top:10px;display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;justify-content:space-between;font-size:11px;color:#8B8FB8">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9C7A6B">
               <span>● ATS</span>
-              <span style="color:#E8EAFF;font-weight:600">{ats}/100</span>
+              <span style="color:#3A2E2A;font-weight:600">{ats}/100</span>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:11px;color:#8B8FB8">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9C7A6B">
               <span>● Score</span>
-              <span style="color:#E8EAFF;font-weight:600">{avg_score()}/10</span>
+              <span style="color:#3A2E2A;font-weight:600">{avg_score()}/10</span>
             </div>
           </div>
         </div>""", unsafe_allow_html=True)
+
+    st.markdown('<div style="height:1px;background:#F0DDD0;margin:22px 0"></div>', unsafe_allow_html=True)
 
     resume     = st.session_state.resume_data
     ats_score  = resume.get("ats_score", 0)         if resume else 0
@@ -308,10 +321,10 @@ def page_home():
         badge = "b-green" if ats_score >= 70 else "b-yellow" if ats_score >= 50 else "b-red"
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;
+          <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;
                       letter-spacing:.4px;margin-bottom:6px">ATS Score</div>
           <div style="font-size:28px;font-weight:700;color:{color};margin-bottom:8px">
-            {ats_score}<span style="font-size:13px;color:#8B8FB8">/100</span></div>
+            {ats_score}<span style="font-size:13px;color:#9C7A6B">/100</span></div>
           <span class="{badge}">{slabel}</span>
         </div>""", unsafe_allow_html=True)
         if has_resume and st.button("View ATS Details →", key="h_ats"):
@@ -322,10 +335,10 @@ def page_home():
         label2 = "Completed" if st.session_state.interview_started else "Not started"
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;
+          <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;
                       letter-spacing:.4px;margin-bottom:6px">Mock Score</div>
-          <div style="font-size:28px;font-weight:700;color:#7B5CF6;margin-bottom:8px">
-            {int_score}<span style="font-size:13px;color:#8B8FB8">/10</span></div>
+          <div style="font-size:28px;font-weight:700;color:#E8896A;margin-bottom:8px">
+            {int_score}<span style="font-size:13px;color:#9C7A6B">/10</span></div>
           <span class="{badge2}">{label2}</span>
         </div>""", unsafe_allow_html=True)
         if st.session_state.interview_started:
@@ -336,7 +349,7 @@ def page_home():
                 st.session_state.page = "questions"; st.rerun()
 
     with c3:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Quick Actions</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">Quick Actions</div>', unsafe_allow_html=True)
         if st.button("📄 ATS Checker",        key="qa1", use_container_width=True): st.session_state.page="ats";       st.rerun()
         if st.button("💬 Question Generator", key="qa2", use_container_width=True): st.session_state.page="questions"; st.rerun()
         if st.button("🎤 Mock Interview",      key="qa3", use_container_width=True): st.session_state.page="mock";      st.rerun()
@@ -389,12 +402,12 @@ def _process_resume(uploaded_file, role):
 
 
 def page_ats_checker():
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">ATS Resume Checker</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Check how well your resume performs in ATS</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">ATS Resume Checker</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Check how well your resume performs in ATS</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
     if not resume:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📄</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#8B8FB8;margin-top:6px">Go to Home and upload a PDF or DOCX resume.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📄</div><div style="color:#3A2E2A;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#9C7A6B;margin-top:6px">Go to Home and upload a PDF or DOCX resume.</div></div>', unsafe_allow_html=True)
         if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
         return
 
@@ -415,50 +428,50 @@ def page_ats_checker():
                    if missing else "Great keyword coverage! Focus on measurable achievements.")
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-weight:600;color:#E8EAFF;margin-bottom:8px">Score Explanation</div>
-          <p style="font-size:13px;color:#8B8FB8;line-height:1.8">
-            Your resume scores <strong style="color:#E8EAFF">{pct}/100</strong> for ATS compatibility. {hint}
+          <div style="font-weight:600;color:#3A2E2A;margin-bottom:8px">Score Explanation</div>
+          <p style="font-size:13px;color:#9C7A6B;line-height:1.8">
+            Your resume scores <strong style="color:#3A2E2A">{pct}/100</strong> for ATS compatibility. {hint}
           </p>
         </div>""", unsafe_allow_html=True)
 
     p1, p2, p3 = st.columns(3)
     with p1:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Section Analysis</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Section Analysis</div>', unsafe_allow_html=True)
         for sec, ok in resume.get("sections",{}).items():
             icon  = "✅" if ok else "❌"
-            color_s = "#E8EAFF" if ok else "#8B8FB8"
-            st.markdown(f'<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #252840;font-size:13px;color:{color_s}">{icon} {sec}</div>', unsafe_allow_html=True)
+            color_s = "#3A2E2A" if ok else "#9C7A6B"
+            st.markdown(f'<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:{color_s}">{icon} {sec}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with p2:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Missing Keywords</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Missing Keywords</div>', unsafe_allow_html=True)
         miss = resume.get("missing_skills",[])
         if miss:
             for sk in miss:
-                st.markdown(f'<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #252840;font-size:13px;color:#8B8FB8"><span style="color:#EF4444">✗</span> {sk}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:#9C7A6B"><span style="color:#EF4444">✗</span> {sk}</div>', unsafe_allow_html=True)
         else:
             st.markdown('<p style="color:#10B981;font-size:13px">🎉 All key skills found!</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with p3:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Suggestions</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Suggestions</div>', unsafe_allow_html=True)
         for tip in resume.get("suggestions",[]):
-            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #252840;font-size:12px;color:#E8EAFF"><span style="color:#F59E0B;flex-shrink:0">●</span>{tip}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #F0DDD0;font-size:12px;color:#3A2E2A"><span style="color:#F59E0B;flex-shrink:0">●</span>{tip}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     found = resume.get("found_skills",[])
     if found:
         tags = "".join(f'<span class="tag">{s}</span>' for s in found)
-        st.markdown(f'<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Keywords found in your resume</div>{tags}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Keywords found in your resume</div>{tags}</div>', unsafe_allow_html=True)
 
 
 def page_resume_analysis():
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Resume Analysis</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">AI-powered resume analysis and insights</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Resume Analysis</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">AI-powered resume analysis and insights</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
     if not resume:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📊</div><div style="color:#E8EAFF;font-size:15px;margin-top:12px">No resume uploaded</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📊</div><div style="color:#3A2E2A;font-size:15px;margin-top:12px">No resume uploaded</div></div>', unsafe_allow_html=True)
         if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
         return
 
@@ -466,27 +479,27 @@ def page_resume_analysis():
     with c1:
         st.markdown('<div class="ai-card"><div style="font-size:12px;color:#10B981;font-weight:600;text-transform:uppercase;margin-bottom:12px">✅ Strengths</div>', unsafe_allow_html=True)
         for s in resume.get("strengths",[]):
-            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #252840;font-size:13px;color:#E8EAFF"><span style="color:#10B981">✓</span>{s}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:#3A2E2A"><span style="color:#10B981">✓</span>{s}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with c2:
         st.markdown('<div class="ai-card"><div style="font-size:12px;color:#EF4444;font-weight:600;text-transform:uppercase;margin-bottom:12px">⚠️ Weaknesses</div>', unsafe_allow_html=True)
         for w in resume.get("weaknesses",[]):
-            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #252840;font-size:13px;color:#E8EAFF"><span style="color:#EF4444">✗</span>{w}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:#3A2E2A"><span style="color:#EF4444">✗</span>{w}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     if resume.get("top_skills"):
         chips = "".join(f'<span class="tag">⌨ {s}</span>' for s in resume["top_skills"])
-        st.markdown(f'<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Top Skills Found</div>{chips}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Top Skills Found</div>{chips}</div>', unsafe_allow_html=True)
 
     score_10 = round(resume.get("ats_score",0) / 10, 1)
     st.markdown(f"""
     <div class="ai-card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase">Resume Summary</div>
+        <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase">Resume Summary</div>
         <span class="b-accent">Overall Score: {score_10}/10</span>
       </div>
-      <p style="font-size:13px;color:#E8EAFF;line-height:1.8">{resume.get('summary','')}</p>
+      <p style="font-size:13px;color:#3A2E2A;line-height:1.8">{resume.get('summary','')}</p>
     </div>""", unsafe_allow_html=True)
 
     try:
@@ -498,7 +511,7 @@ def page_resume_analysis():
         st.markdown(f"""
         <div class="ai-card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase">Skill Gap — {resume['role']}</div>
+            <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase">Skill Gap — {resume['role']}</div>
             <span class="{bc}">{pct}% coverage</span>
           </div>
           <div class="prog-bar"><div class="prog-fill {pfil}" style="width:{pct}%"></div></div>
@@ -508,9 +521,9 @@ def page_resume_analysis():
                 ga, gb = st.columns([4,1])
                 with ga:
                     pb = "b-red" if g["priority"]=="High" else "b-yellow"
-                    st.markdown(f'<span class="{pb}">{g["priority"]}</span> <span style="color:#E8EAFF;font-size:13px;font-weight:500"> {g["skill"]}</span>', unsafe_allow_html=True)
+                    st.markdown(f'<span class="{pb}">{g["priority"]}</span> <span style="color:#3A2E2A;font-size:13px;font-weight:500"> {g["skill"]}</span>', unsafe_allow_html=True)
                 with gb:
-                    st.markdown(f'<a href="{g["resource"]}" target="_blank" style="color:#7B5CF6;font-size:12px">Learn →</a>', unsafe_allow_html=True)
+                    st.markdown(f'<a href="{g["resource"]}" target="_blank" style="color:#E8896A;font-size:12px">Learn →</a>', unsafe_allow_html=True)
     except Exception:
         pass
 
@@ -526,18 +539,18 @@ def page_resume_analysis():
 def page_career_recommendation():
     from services.career_recommender import recommend
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">AI Career Recommendation</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Discover the career paths that best fit your current skills</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">AI Career Recommendation</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Discover the career paths that best fit your current skills</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
     if not resume:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🧭</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#8B8FB8;margin-top:6px">Go to Home and upload a PDF or DOCX resume to get personalised recommendations.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🧭</div><div style="color:#3A2E2A;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#9C7A6B;margin-top:6px">Go to Home and upload a PDF or DOCX resume to get personalised recommendations.</div></div>', unsafe_allow_html=True)
         if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
         return
 
     c1, c2 = st.columns([3, 1])
     with c1:
-        st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-top:6px">Uses the skills detected in your resume to rank the career paths you are best suited for right now.</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-top:6px">Uses the skills detected in your resume to rank the career paths you are best suited for right now.</p>', unsafe_allow_html=True)
     with c2:
         if st.button("🧭 Get Recommendations", type="primary", use_container_width=True):
             with st.spinner("Analysing your skill profile..."):
@@ -550,7 +563,7 @@ def page_career_recommendation():
 
     result = st.session_state.career_recommendations
     if not result:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🧭</div><div style="color:#8B8FB8;margin-top:12px">Click "Get Recommendations" to see your best-fit career paths.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🧭</div><div style="color:#9C7A6B;margin-top:12px">Click "Get Recommendations" to see your best-fit career paths.</div></div>', unsafe_allow_html=True)
         return
 
     matches = result.get("top_matches", [])
@@ -559,24 +572,24 @@ def page_career_recommendation():
         return
 
     st.markdown(f"""
-    <div class="ai-card" style="background:rgba(123,92,246,.08)">
-      <div style="font-size:12px;color:#7B5CF6;font-weight:600;text-transform:uppercase;margin-bottom:8px">✨ AI Insight</div>
-      <p style="font-size:13.5px;color:#E8EAFF;line-height:1.8">{result.get('insight','')}</p>
+    <div class="ai-card" style="background:rgba(232,137,106,.08)">
+      <div style="font-size:12px;color:#E8896A;font-weight:600;text-transform:uppercase;margin-bottom:8px">✨ AI Insight</div>
+      <p style="font-size:13.5px;color:#3A2E2A;line-height:1.8">{result.get('insight','')}</p>
     </div>""", unsafe_allow_html=True)
 
     for i, path in enumerate(matches):
         pct   = path["match_percent"]
-        color = "#10B981" if pct >= 70 else "#7B5CF6" if pct >= 40 else "#F59E0B"
+        color = "#10B981" if pct >= 70 else "#E8896A" if pct >= 40 else "#F59E0B"
         badge = "b-green" if pct >= 70 else "b-accent" if pct >= 40 else "b-yellow"
-        matched_tags = "".join(f'<span class="tag">✓ {s}</span>' for s in path["matched_skills"]) or '<span style="color:#8B8FB8;font-size:12px">None yet</span>'
+        matched_tags = "".join(f'<span class="tag">✓ {s}</span>' for s in path["matched_skills"]) or '<span style="color:#9C7A6B;font-size:12px">None yet</span>'
         missing_tags = "".join(f'<span class="tag" style="background:rgba(239,68,68,.12);color:#EF4444;border-color:rgba(239,68,68,.2)">{s}</span>' for s in path["missing_skills"]) or '<span style="color:#10B981;font-size:12px">All core skills covered 🎉</span>'
         top_flag = ' <span class="b-green">🏆 Best Match</span>' if i == 0 else ""
         st.markdown(f"""
         <div class="ai-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
             <div>
-              <span style="font-size:17px;font-weight:700;color:#E8EAFF">{path['title']}</span>{top_flag}
-              <div style="color:#8B8FB8;font-size:12.5px;margin-top:4px">{path['description']}</div>
+              <span style="font-size:17px;font-weight:700;color:#3A2E2A">{path['title']}</span>{top_flag}
+              <div style="color:#9C7A6B;font-size:12.5px;margin-top:4px">{path['description']}</div>
             </div>
             <div style="text-align:center;flex-shrink:0">
               <div style="font-size:24px;font-weight:800;color:{color}">{pct}%</div>
@@ -588,11 +601,11 @@ def page_career_recommendation():
             <span class="b-accent" style="font-size:11px">Growth: {path.get('growth_outlook','—')}</span>
           </div>
           <div style="margin-top:12px">
-            <div style="font-size:11px;color:#8B8FB8;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills you have</div>
+            <div style="font-size:11px;color:#9C7A6B;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills you have</div>
             {matched_tags}
           </div>
           <div style="margin-top:10px">
-            <div style="font-size:11px;color:#8B8FB8;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills to build</div>
+            <div style="font-size:11px;color:#9C7A6B;font-weight:600;text-transform:uppercase;margin-bottom:6px">Skills to build</div>
             {missing_tags}
           </div>
         </div>""", unsafe_allow_html=True)
@@ -605,8 +618,8 @@ def page_learning_roadmap():
     from config.settings import ROLES
     from services.roadmap_generator import generate
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Learning Roadmap</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">A week-by-week plan to close your skill gaps</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Learning Roadmap</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">A week-by-week plan to close your skill gaps</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
     default_role = resume.get("role") if resume else st.session_state.role
@@ -635,7 +648,7 @@ def page_learning_roadmap():
 
     result = st.session_state.roadmap_data
     if not result:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🗺️</div><div style="color:#8B8FB8;margin-top:12px">Click "Generate Roadmap" to build your learning plan.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🗺️</div><div style="color:#9C7A6B;margin-top:12px">Click "Generate Roadmap" to build your learning plan.</div></div>', unsafe_allow_html=True)
         return
 
     ai_tag = '<span class="b-cyan">✨ AI Generated</span>' if result.get("generated_by_ai") else '<span class="b-accent">Curated Plan</span>'
@@ -647,16 +660,16 @@ def page_learning_roadmap():
     </div>""", unsafe_allow_html=True)
 
     for m in result.get("milestones", []):
-        skills_tags = "".join(f'<span class="tag">{s}</span>' for s in m.get("skills", [])) or '<span style="color:#8B8FB8;font-size:12px">Review & practice</span>'
-        tasks_html = "".join(f'<div style="padding:4px 0;font-size:12.5px;color:#E8EAFF">☐ {t}</div>' for t in m.get("tasks", []))
-        res_html = "".join(f'<a href="{r["url"]}" target="_blank" style="color:#7B5CF6;font-size:11.5px;margin-right:10px">🔗 {r["skill"]}</a>' for r in m.get("resources", []))
+        skills_tags = "".join(f'<span class="tag">{s}</span>' for s in m.get("skills", [])) or '<span style="color:#9C7A6B;font-size:12px">Review & practice</span>'
+        tasks_html = "".join(f'<div style="padding:4px 0;font-size:12.5px;color:#3A2E2A">☐ {t}</div>' for t in m.get("tasks", []))
+        res_html = "".join(f'<a href="{r["url"]}" target="_blank" style="color:#E8896A;font-size:11.5px;margin-right:10px">🔗 {r["skill"]}</a>' for r in m.get("resources", []))
         st.markdown(f"""
         <div class="ai-card">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <span style="width:30px;height:30px;border-radius:50%;background:rgba(123,92,246,.2);
-                         color:#7B5CF6;font-size:12px;font-weight:700;display:flex;align-items:center;
+            <span style="width:30px;height:30px;border-radius:50%;background:rgba(232,137,106,.2);
+                         color:#E8896A;font-size:12px;font-weight:700;display:flex;align-items:center;
                          justify-content:center;flex-shrink:0">{m.get('week','?')}</span>
-            <span style="font-weight:700;font-size:14.5px;color:#E8EAFF">{m.get('title','')}</span>
+            <span style="font-weight:700;font-size:14.5px;color:#3A2E2A">{m.get('title','')}</span>
           </div>
           <div style="margin-bottom:10px">{skills_tags}</div>
           {tasks_html}
@@ -677,12 +690,12 @@ def page_job_match_analyzer():
     from config.settings import ROLES
     from services.job_match_analyzer import analyze
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Job Match Analyzer</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Paste a job description to see how well your resume matches</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Job Match Analyzer</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Paste a job description to see how well your resume matches</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
     if not resume:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🎯</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#8B8FB8;margin-top:6px">Go to Home and upload a PDF or DOCX resume first.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">🎯</div><div style="color:#3A2E2A;font-size:15px;font-weight:500;margin-top:12px">No resume uploaded yet</div><div style="color:#9C7A6B;margin-top:6px">Go to Home and upload a PDF or DOCX resume first.</div></div>', unsafe_allow_html=True)
         if st.button("← Back to Home"): st.session_state.page="home"; st.rerun()
         return
 
@@ -706,11 +719,11 @@ def page_job_match_analyzer():
 
     result = st.session_state.job_match_result
     if not result:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🎯</div><div style="color:#8B8FB8;margin-top:12px">Paste a job description above and click "Analyze Match".</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">🎯</div><div style="color:#9C7A6B;margin-top:12px">Paste a job description above and click "Analyze Match".</div></div>', unsafe_allow_html=True)
         return
 
     pct = result["match_percent"]
-    color = "#10B981" if pct >= 75 else "#7B5CF6" if pct >= 50 else "#F59E0B" if pct >= 25 else "#EF4444"
+    color = "#10B981" if pct >= 75 else "#E8896A" if pct >= 50 else "#F59E0B" if pct >= 25 else "#EF4444"
 
     c1, c2 = st.columns([1, 3])
     with c1:
@@ -722,8 +735,8 @@ def page_job_match_analyzer():
     with c2:
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-weight:600;color:#E8EAFF;margin-bottom:8px">Fit Summary</div>
-          <p style="font-size:13px;color:#E8EAFF;line-height:1.8">{result['summary']}</p>
+          <div style="font-weight:600;color:#3A2E2A;margin-bottom:8px">Fit Summary</div>
+          <p style="font-size:13px;color:#3A2E2A;line-height:1.8">{result['summary']}</p>
         </div>""", unsafe_allow_html=True)
 
     p1, p2 = st.columns(2)
@@ -733,7 +746,7 @@ def page_job_match_analyzer():
             tags = "".join(f'<span class="tag">{s}</span>' for s in result["matched_keywords"])
             st.markdown(tags, unsafe_allow_html=True)
         else:
-            st.markdown('<p style="color:#8B8FB8;font-size:13px">No overlapping keywords found.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#9C7A6B;font-size:13px">No overlapping keywords found.</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     with p2:
         st.markdown('<div class="ai-card"><div style="font-size:12px;color:#EF4444;font-weight:600;text-transform:uppercase;margin-bottom:12px">❌ Missing Keywords</div>', unsafe_allow_html=True)
@@ -749,8 +762,8 @@ def page_question_generator():
     from config.settings import ROLES, DIFFICULTY_LEVELS
     from services.question_generator import generate_generic, generate_personalized
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Question Generator</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Generate interview questions based on your resume</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Question Generator</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Generate interview questions based on your resume</p>', unsafe_allow_html=True)
 
     resume = st.session_state.resume_data
 
@@ -790,11 +803,11 @@ def page_question_generator():
 
     questions = st.session_state.questions
     if not questions:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">💬</div><div style="color:#8B8FB8;margin-top:12px">Choose a role and click Generate Questions above.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:40px"><div style="font-size:36px">💬</div><div style="color:#9C7A6B;margin-top:12px">Choose a role and click Generate Questions above.</div></div>', unsafe_allow_html=True)
         return
 
     if st.session_state.personalized:
-        st.markdown('<div style="background:rgba(123,92,246,.12);border:1px solid #7B5CF6;color:#7B5CF6;border-radius:8px;padding:10px 16px;margin-bottom:12px;font-size:13px">✨ Questions <strong>personalized from your resume</strong> — tailored to your exact skills and projects.</div>', unsafe_allow_html=True)
+        st.markdown('<div style="background:rgba(232,137,106,.12);border:1px solid #E8896A;color:#E8896A;border-radius:8px;padding:10px 16px;margin-bottom:12px;font-size:13px">✨ Questions <strong>personalized from your resume</strong> — tailored to your exact skills and projects.</div>', unsafe_allow_html=True)
 
     tech = [q for q in questions if q.get("category")=="Technical"]
     hr   = [q for q in questions if q.get("category")=="HR"]
@@ -811,12 +824,12 @@ def page_question_generator():
         cb = f'<span class="b-accent">{q.get("category","")}</span>'
         pb = '<span class="b-cyan">✨</span>' if q.get("personalized") else ""
         st.markdown(f"""
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #252840">
-          <span style="width:26px;height:26px;border-radius:50%;background:rgba(123,92,246,.2);
-                       color:#7B5CF6;font-size:11px;font-weight:700;display:flex;align-items:center;
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #F0DDD0">
+          <span style="width:26px;height:26px;border-radius:50%;background:rgba(232,137,106,.2);
+                       color:#E8896A;font-size:11px;font-weight:700;display:flex;align-items:center;
                        justify-content:center;flex-shrink:0;margin-top:2px">{i}</span>
           <span>
-            <span style="display:block;font-size:13.5px;color:#E8EAFF;margin-bottom:6px">{q['question']}</span>
+            <span style="display:block;font-size:13.5px;color:#3A2E2A;margin-bottom:6px">{q['question']}</span>
             {cb} {db} {pb}
           </span>
         </div>""", unsafe_allow_html=True)
@@ -876,8 +889,8 @@ def page_mock_interview():
 
     c1, c2 = st.columns([3, 1])
     with c1:
-        st.markdown(f'<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Mock Interview</h1>', unsafe_allow_html=True)
-        st.markdown(f'<p style="color:#8B8FB8;font-size:13px">{role}{"  ✨ Personalized" if personalized else ""}</p>', unsafe_allow_html=True)
+        st.markdown(f'<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Mock Interview</h1>', unsafe_allow_html=True)
+        st.markdown(f'<p style="color:#9C7A6B;font-size:13px">{role}{"  ✨ Personalized" if personalized else ""}</p>', unsafe_allow_html=True)
     with c2:
         if st.button("⏹ End Interview"):
             st.session_state.interview_complete = True
@@ -892,7 +905,7 @@ def page_mock_interview():
     st.markdown(f"""
     <div style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;font-size:12px;
-                  color:#8B8FB8;margin-bottom:6px">
+                  color:#9C7A6B;margin-bottom:6px">
         <span>Question {idx+1} of {total}</span><span>{prog}% complete</span>
       </div>
       <div class="prog-bar"><div class="prog-fill" style="width:{prog}%"></div></div>
@@ -901,7 +914,7 @@ def page_mock_interview():
     elapsed = int(time.time() - (st.session_state.get("q_start_time") or time.time()))
     remaining = max(0, 120 - elapsed)
     mins, secs = remaining // 60, remaining % 60
-    tc = "#7B5CF6" if remaining > 30 else "#F59E0B" if remaining > 10 else "#EF4444"
+    tc = "#E8896A" if remaining > 30 else "#F59E0B" if remaining > 10 else "#EF4444"
     db = diff_badge(question.get("difficulty","Medium"))
 
     st.markdown(f"""
@@ -910,13 +923,13 @@ def page_mock_interview():
         <div style="display:flex;gap:8px">
           <span class="b-accent">{question.get('category','Technical')}</span>{db}
         </div>
-        <div style="background:#181B30;border:1px solid #2E3154;border-radius:12px;
+        <div style="background:#FDEAE0;border:1px solid #E8C7AE;border-radius:12px;
                     padding:8px 18px;text-align:center">
-          <div style="font-size:10px;color:#8B8FB8;text-transform:uppercase;letter-spacing:.5px">Time Left</div>
+          <div style="font-size:10px;color:#9C7A6B;text-transform:uppercase;letter-spacing:.5px">Time Left</div>
           <div style="font-size:24px;font-weight:700;color:{tc}">{mins:02d}:{secs:02d}</div>
         </div>
       </div>
-      <p style="font-size:17px;font-weight:600;color:#E8EAFF;line-height:1.5;margin-bottom:12px">
+      <p style="font-size:17px;font-weight:600;color:#3A2E2A;line-height:1.5;margin-bottom:12px">
         {question['question']}</p>
       <div class="waveform">
         {''.join(f'<span style="height:{h}%"></span>' for h in [20,55,85,40,70,30,90,55,35,75,45,80])}
@@ -979,8 +992,8 @@ def page_evaluation():
     total      = cur["total"]
     score      = evaluation.get("score", 0)
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">AI Evaluation</h1>', unsafe_allow_html=True)
-    st.markdown(f'<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Question {idx+1} of {total} · Your answer evaluation and feedback</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">AI Evaluation</h1>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Question {idx+1} of {total} · Your answer evaluation and feedback</p>', unsafe_allow_html=True)
 
     color = "#10B981" if score >= 7 else "#F59E0B" if score >= 5 else "#EF4444"
     badge = "b-green"  if score >= 7 else "b-yellow" if score >= 5 else "b-red"
@@ -998,29 +1011,29 @@ def page_evaluation():
     with c2:
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-weight:600;color:#E8EAFF;margin-bottom:8px">Detailed Feedback</div>
-          <p style="font-size:13px;color:#E8EAFF;line-height:1.9">{evaluation.get('feedback','')}</p>
+          <div style="font-weight:600;color:#3A2E2A;margin-bottom:8px">Detailed Feedback</div>
+          <p style="font-size:13px;color:#3A2E2A;line-height:1.9">{evaluation.get('feedback','')}</p>
         </div>""", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2)
     with c1:
         st.markdown('<div class="ai-card"><div style="font-size:12px;color:#10B981;font-weight:600;text-transform:uppercase;margin-bottom:12px">💪 Strengths</div>', unsafe_allow_html=True)
         for s in evaluation.get("strengths",[]):
-            st.markdown(f'<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #252840;font-size:13px;color:#E8EAFF"><span style="color:#10B981">✓</span>{s}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:#3A2E2A"><span style="color:#10B981">✓</span>{s}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with c2:
         st.markdown('<div class="ai-card"><div style="font-size:12px;color:#F59E0B;font-weight:600;text-transform:uppercase;margin-bottom:12px">📈 Areas to Improve</div>', unsafe_allow_html=True)
         for im in evaluation.get("improvements",[]):
-            st.markdown(f'<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #252840;font-size:13px;color:#E8EAFF"><span style="color:#F59E0B">↑</span>{im}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F0DDD0;font-size:13px;color:#3A2E2A"><span style="color:#F59E0B">↑</span>{im}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown(f"""
     <div class="ai-card">
-      <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:8px">Question</div>
-      <p style="font-weight:600;color:#E8EAFF;margin-bottom:14px">{question['question']}</p>
-      <div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:8px">Your Answer</div>
-      <p style="font-size:13px;color:#8B8FB8;line-height:1.9">{answer}</p>
+      <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:8px">Question</div>
+      <p style="font-weight:600;color:#3A2E2A;margin-bottom:14px">{question['question']}</p>
+      <div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:8px">Your Answer</div>
+      <p style="font-size:13px;color:#9C7A6B;line-height:1.9">{answer}</p>
     </div>""", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2)
@@ -1047,8 +1060,8 @@ def page_evaluation():
 def page_final_report():
     from services.report_generator import build
 
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Final Interview Report</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Overall performance in the interview</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Final Interview Report</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Overall performance in the interview</p>', unsafe_allow_html=True)
 
     interview = {
         "role":        st.session_state.get("role",""),
@@ -1061,13 +1074,13 @@ def page_final_report():
     report = build(interview, resume)
 
     if report.get("attempted", 0) == 0:
-        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📋</div><div style="color:#E8EAFF;font-size:15px;font-weight:500;margin-top:12px">No interview data yet</div><div style="color:#8B8FB8;margin-top:6px">Complete a mock interview first to generate your report.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card" style="text-align:center;padding:48px"><div style="font-size:44px">📋</div><div style="color:#3A2E2A;font-size:15px;font-weight:500;margin-top:12px">No interview data yet</div><div style="color:#9C7A6B;margin-top:6px">Complete a mock interview first to generate your report.</div></div>', unsafe_allow_html=True)
         if st.button("Start Mock Interview →", type="primary"):
             st.session_state.page = "questions"; st.rerun()
         return
 
     os_val = report.get("overall_score", 0)
-    lc     = "#10B981" if os_val >= 8 else "#7B5CF6" if os_val >= 6 else "#F59E0B"
+    lc     = "#10B981" if os_val >= 8 else "#E8896A" if os_val >= 6 else "#F59E0B"
     stars  = report.get("stars","")
 
     pers_badge  = '<span class="b-cyan" style="font-size:13px">✨ Personalized</span>' if report.get("personalized") else ""
@@ -1075,13 +1088,13 @@ def page_final_report():
     st.markdown(f"""
     <div class="ai-card" style="text-align:center;padding:36px">
       <div style="font-size:56px;font-weight:800;color:{lc};line-height:1">
-        {os_val}<span style="font-size:22px;color:#8B8FB8">/10</span></div>
+        {os_val}<span style="font-size:22px;color:#9C7A6B">/10</span></div>
       <div style="color:#F59E0B;font-size:20px;letter-spacing:2px;margin:8px 0">{stars}</div>
       <div style="display:flex;gap:8px;justify-content:center;margin:10px 0">
         <span class="b-accent" style="font-size:13px">{report.get('performance_label','')}</span>
         {pers_badge} {role_badge}
       </div>
-      <p style="color:#8B8FB8;font-size:13px;max-width:520px;margin:16px auto 0;line-height:1.9">
+      <p style="color:#9C7A6B;font-size:13px;max-width:520px;margin:16px auto 0;line-height:1.9">
         {report.get('summary','')}</p>
     </div>""", unsafe_allow_html=True)
 
@@ -1096,21 +1109,21 @@ def page_final_report():
             st.markdown(f"""
             <div class="ai-card" style="text-align:center">
               <div style="font-size:22px;margin-bottom:6px">{icon}</div>
-              <div style="font-size:28px;font-weight:700;color:#E8EAFF">{val}</div>
-              <div style="font-size:12px;color:#8B8FB8">{lbl}</div>
+              <div style="font-size:28px;font-weight:700;color:#3A2E2A">{val}</div>
+              <div style="font-size:12px;color:#9C7A6B">{lbl}</div>
             </div>""", unsafe_allow_html=True)
 
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:16px">Score Breakdown</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:16px">Score Breakdown</div>', unsafe_allow_html=True)
         for lbl, sc in report.get("breakdown",{}).items():
             pc = int(sc/10*100)
             fc = "p-green" if sc >= 7 else "p-yellow" if sc < 5 else ""
             st.markdown(f"""
             <div style="margin-bottom:14px">
               <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-                <span style="font-size:13px;color:#8B8FB8">{lbl}</span>
-                <span style="font-size:13px;color:#E8EAFF;font-weight:600">{sc}/10</span>
+                <span style="font-size:13px;color:#9C7A6B">{lbl}</span>
+                <span style="font-size:13px;color:#3A2E2A;font-weight:600">{sc}/10</span>
               </div>
               <div class="prog-bar"><div class="prog-fill {fc}" style="width:{pc}%"></div></div>
             </div>""", unsafe_allow_html=True)
@@ -1118,7 +1131,7 @@ def page_final_report():
 
     with c2:
         ats = report.get("ats_score", 0)
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:16px">Resume Performance</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:16px">Resume Performance</div>', unsafe_allow_html=True)
         if ats:
             combined = int(os_val/10*0.6*100 + ats/100*0.4*100)
             ag = "p-green" if ats >= 70 else ""
@@ -1126,30 +1139,30 @@ def page_final_report():
             st.markdown(f"""
             <div style="margin-bottom:14px">
               <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-                <span style="font-size:13px;color:#8B8FB8">ATS Resume Score</span>
-                <span style="font-size:13px;color:#E8EAFF;font-weight:600">{ats}/100</span>
+                <span style="font-size:13px;color:#9C7A6B">ATS Resume Score</span>
+                <span style="font-size:13px;color:#3A2E2A;font-weight:600">{ats}/100</span>
               </div>
               <div class="prog-bar"><div class="prog-fill {ag}" style="width:{ats}%"></div></div>
             </div>
             <div style="margin-bottom:14px">
               <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-                <span style="font-size:13px;color:#8B8FB8">Interview Score</span>
-                <span style="font-size:13px;color:#E8EAFF;font-weight:600">{os_val}/10</span>
+                <span style="font-size:13px;color:#9C7A6B">Interview Score</span>
+                <span style="font-size:13px;color:#3A2E2A;font-weight:600">{os_val}/10</span>
               </div>
               <div class="prog-bar"><div class="prog-fill" style="width:{ig}%"></div></div>
             </div>
             <div class="ai-card-flat" style="text-align:center">
-              <div style="font-size:12px;color:#8B8FB8;margin-bottom:4px">Combined Readiness</div>
-              <div style="font-size:32px;font-weight:700;color:#7B5CF6">{combined}%</div>
+              <div style="font-size:12px;color:#9C7A6B;margin-bottom:4px">Combined Readiness</div>
+              <div style="font-size:32px;font-weight:700;color:#E8896A">{combined}%</div>
             </div>""", unsafe_allow_html=True)
         else:
-            st.markdown('<p style="color:#8B8FB8;font-size:13px">Upload a resume to see combined score.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#9C7A6B;font-size:13px">Upload a resume to see combined score.</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     qs    = st.session_state.get("questions",[])
     evals = st.session_state.get("evaluations",{})
     if qs:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">Q&A Review</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">Q&A Review</div>', unsafe_allow_html=True)
         for i, q in enumerate(qs):
             ev = evals.get(i) or evals.get(str(i))
             if ev:
@@ -1157,20 +1170,20 @@ def page_final_report():
                 eb = "b-green" if es >= 7 else "b-yellow" if es >= 5 else "b-red"
                 fb = ev.get("feedback","")[:100]
                 st.markdown(f"""
-                <div style="padding:14px 0;border-bottom:1px solid #252840">
+                <div style="padding:14px 0;border-bottom:1px solid #F0DDD0">
                   <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-                    <span style="width:26px;height:26px;border-radius:50%;background:rgba(123,92,246,.2);
-                                 color:#7B5CF6;font-size:11px;font-weight:700;display:flex;align-items:center;
+                    <span style="width:26px;height:26px;border-radius:50%;background:rgba(232,137,106,.2);
+                                 color:#E8896A;font-size:11px;font-weight:700;display:flex;align-items:center;
                                  justify-content:center;flex-shrink:0">{i+1}</span>
-                    <span style="font-weight:600;font-size:13px;color:#E8EAFF">{q['question']}</span>
+                    <span style="font-weight:600;font-size:13px;color:#3A2E2A">{q['question']}</span>
                   </div>
                   <div style="display:flex;gap:8px;align-items:center;padding-left:36px">
                     <span class="{eb}">{es}/10</span>
-                    <span style="font-size:12px;color:#8B8FB8">{fb}…</span>
+                    <span style="font-size:12px;color:#9C7A6B">{fb}…</span>
                   </div>
                 </div>""", unsafe_allow_html=True)
             else:
-                st.markdown(f'<div style="padding:10px 0;border-bottom:1px solid #252840"><span style="font-size:13px;color:#8B8FB8">{i+1}. {q["question"]}</span> <span class="b-yellow">Not answered</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="padding:10px 0;border-bottom:1px solid #F0DDD0"><span style="font-size:13px;color:#9C7A6B">{i+1}. {q["question"]}</span> <span class="b-yellow">Not answered</span></div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     lines = [
@@ -1195,8 +1208,8 @@ def page_final_report():
 
 
 def page_career_dashboard():
-    st.markdown('<h1 style="color:#E8EAFF;font-size:22px;margin-bottom:2px">Career Dashboard</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#8B8FB8;font-size:13px;margin-bottom:20px">Your career-readiness snapshot, all in one place</p>', unsafe_allow_html=True)
+    st.markdown('<h1 style="color:#3A2E2A;font-size:22px;margin-bottom:2px">Career Dashboard</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#9C7A6B;font-size:13px;margin-bottom:20px">Your career-readiness snapshot, all in one place</p>', unsafe_allow_html=True)
 
     resume   = st.session_state.resume_data
     ats      = resume.get("ats_score", 0) if resume else 0
@@ -1214,9 +1227,9 @@ def page_career_dashboard():
 
     st.markdown(f"""
     <div class="ai-card" style="text-align:center;padding:36px">
-      <div style="font-size:12px;color:#8B8FB8;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Overall Career Readiness</div>
-      <div style="font-size:52px;font-weight:800;color:#7B5CF6;line-height:1;margin-top:8px">{readiness}%</div>
-      <p style="color:#8B8FB8;font-size:13px;max-width:520px;margin:12px auto 0;line-height:1.8">
+      <div style="font-size:12px;color:#9C7A6B;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Overall Career Readiness</div>
+      <div style="font-size:52px;font-weight:800;color:#E8896A;line-height:1;margin-top:8px">{readiness}%</div>
+      <p style="color:#9C7A6B;font-size:13px;max-width:520px;margin:12px auto 0;line-height:1.8">
         Combines your ATS resume score, mock interview performance, best career-path match, and latest job-description match.</p>
     </div>""", unsafe_allow_html=True)
 
@@ -1225,16 +1238,16 @@ def page_career_dashboard():
         color = "#10B981" if ats >= 70 else "#F59E0B" if ats >= 50 else "#EF4444"
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">📄 ATS Score</div>
-          <div style="font-size:26px;font-weight:700;color:{color}">{ats}<span style="font-size:12px;color:#8B8FB8">/100</span></div>
+          <div style="font-size:11px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:6px">📄 ATS Score</div>
+          <div style="font-size:26px;font-weight:700;color:{color}">{ats}<span style="font-size:12px;color:#9C7A6B">/100</span></div>
         </div>""", unsafe_allow_html=True)
         if st.button("View →", key="d_ats", use_container_width=True): st.session_state.page="ats"; st.rerun()
 
     with c2:
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎤 Mock Interview</div>
-          <div style="font-size:26px;font-weight:700;color:#7B5CF6">{mock_avg}<span style="font-size:12px;color:#8B8FB8">/10</span></div>
+          <div style="font-size:11px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎤 Mock Interview</div>
+          <div style="font-size:26px;font-weight:700;color:#E8896A">{mock_avg}<span style="font-size:12px;color:#9C7A6B">/10</span></div>
         </div>""", unsafe_allow_html=True)
         if st.button("View →", key="d_mock", use_container_width=True): st.session_state.page="report"; st.rerun()
 
@@ -1242,8 +1255,8 @@ def page_career_dashboard():
         label = top_path["title"] if top_path else "Not analysed"
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🧭 Best Career Fit</div>
-          <div style="font-size:16px;font-weight:700;color:#E8EAFF;margin-bottom:4px">{label}</div>
+          <div style="font-size:11px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:6px">🧭 Best Career Fit</div>
+          <div style="font-size:16px;font-weight:700;color:#3A2E2A;margin-bottom:4px">{label}</div>
           <div style="font-size:13px;color:#10B981;font-weight:600">{top_pct}% match</div>
         </div>""", unsafe_allow_html=True)
         if st.button("View →", key="d_career", use_container_width=True): st.session_state.page="career"; st.rerun()
@@ -1252,30 +1265,30 @@ def page_career_dashboard():
         label = f"{jm_pct}% match" if jobmatch else "Not analysed"
         st.markdown(f"""
         <div class="ai-card">
-          <div style="font-size:11px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎯 Latest Job Match</div>
-          <div style="font-size:26px;font-weight:700;color:#7B5CF6">{label}</div>
+          <div style="font-size:11px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:6px">🎯 Latest Job Match</div>
+          <div style="font-size:26px;font-weight:700;color:#E8896A">{label}</div>
         </div>""", unsafe_allow_html=True)
         if st.button("View →", key="d_jm", use_container_width=True): st.session_state.page="jobmatch"; st.rerun()
 
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">🗺️ Learning Roadmap Progress</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">🗺️ Learning Roadmap Progress</div>', unsafe_allow_html=True)
         if roadmap:
             st.markdown(f"""
-            <p style="font-size:13px;color:#E8EAFF;line-height:1.8">
+            <p style="font-size:13px;color:#3A2E2A;line-height:1.8">
               Your <strong>{weeks_left}-week</strong> roadmap for <strong>{roadmap['role']}</strong> covers
-              <strong style="color:#7B5CF6">{roadmap['total_skills']}</strong> skills across
+              <strong style="color:#E8896A">{roadmap['total_skills']}</strong> skills across
               {len(roadmap.get('milestones', []))} milestones.</p>""", unsafe_allow_html=True)
             if st.button("Open Roadmap →", key="d_roadmap_open"):
                 st.session_state.page = "roadmap"; st.rerun()
         else:
-            st.markdown('<p style="color:#8B8FB8;font-size:13px">No roadmap generated yet.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#9C7A6B;font-size:13px">No roadmap generated yet.</p>', unsafe_allow_html=True)
             if st.button("Generate Roadmap →", key="d_roadmap_gen"):
                 st.session_state.page = "roadmap"; st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
     with c2:
-        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#8B8FB8;font-weight:500;text-transform:uppercase;margin-bottom:12px">🧭 Top 3 Career Matches</div>', unsafe_allow_html=True)
+        st.markdown('<div class="ai-card"><div style="font-size:12px;color:#9C7A6B;font-weight:500;text-transform:uppercase;margin-bottom:12px">🧭 Top 3 Career Matches</div>', unsafe_allow_html=True)
         if career and career.get("top_matches"):
             for p in career["top_matches"][:3]:
                 pc = p["match_percent"]
@@ -1283,13 +1296,13 @@ def page_career_dashboard():
                 st.markdown(f"""
                 <div style="margin-bottom:12px">
                   <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                    <span style="font-size:13px;color:#E8EAFF">{p['title']}</span>
-                    <span style="font-size:13px;color:#8B8FB8;font-weight:600">{pc}%</span>
+                    <span style="font-size:13px;color:#3A2E2A">{p['title']}</span>
+                    <span style="font-size:13px;color:#9C7A6B;font-weight:600">{pc}%</span>
                   </div>
                   <div class="prog-bar"><div class="prog-fill {fc}" style="width:{pc}%"></div></div>
                 </div>""", unsafe_allow_html=True)
         else:
-            st.markdown('<p style="color:#8B8FB8;font-size:13px">No career recommendations yet.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#9C7A6B;font-size:13px">No career recommendations yet.</p>', unsafe_allow_html=True)
             if st.button("Get Recommendations →", key="d_career_gen"):
                 st.session_state.page = "career"; st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
