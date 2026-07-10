@@ -34,11 +34,11 @@ OpenAI API (GPT-4o-mini), with rule-based fallbacks so it works fully offline.
 - Career Dashboard — combines ATS score, mock interview average, best career-path match, and job-match score into one overall readiness percentage
 
 **Persistence**
-- MongoDB-backed session and history persistence across resumes, interviews, career recommendations, roadmaps, and job matches
+- MongoDB Atlas-backed session and history persistence across resumes, interviews, career recommendations, roadmaps, and job matches
 
 ## Tech Stack
 
-Python · Streamlit · MongoDB (pymongo) · OpenAI API (GPT-4o-mini) · pdfplumber · python-docx · Pytest
+Python · Streamlit · MongoDB Atlas (pymongo) · OpenAI API (GPT-4o-mini) · pdfplumber · python-docx · Pytest
 
 ## Run Locally
 
@@ -49,11 +49,11 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Create a `.env` file:
+Create a `.env` file (get `MONGO_URI` from your MongoDB Atlas cluster's "Connect" → "Drivers" screen):
 
 ```
-MONGO_URI=mongodb://localhost:27017
-MONGO_DB_NAME=ai_interview_prep
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
+MONGO_DB_NAME=careerpilot_ai
 OPENAI_API_KEY=
 SECRET_KEY=your-random-secret-key
 ```
